@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'com.linecorp.armeria:armeria:1.0.0'
+
+    implementation 'com.google.guava:guava:29.0-jre'
+
+    runtimeOnly 'org.slf4j:slf4j-simple:1.7.30'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testImplementation 'org.awaitility:awaitility:4.0.3'
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+}
+
+test {
+    // Use junit platform for unit tests
+    useJUnitPlatform()
+}
