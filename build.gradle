@@ -10,7 +10,10 @@ repositories {
 
 dependencies {
 
-    implementation 'com.linecorp.armeria:armeria:1.0.0'
+    implementation 'com.linecorp.armeria:armeria:1.1.0'
+    implementation 'com.linecorp.armeria:armeria-brave:1.1.0'
+    implementation 'io.zipkin.reporter2:zipkin-sender-urlconnection:2.15.2'
+
     implementation 'com.google.guava:guava:29.0-jre'
     runtimeOnly 'org.slf4j:slf4j-simple:1.7.30'
 
