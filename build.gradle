@@ -13,6 +13,7 @@ dependencies {
     implementation 'com.linecorp.armeria:armeria:1.1.0'
     implementation 'com.linecorp.armeria:armeria-brave:1.1.0'
     implementation 'io.zipkin.reporter2:zipkin-sender-urlconnection:2.15.2'
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.5.5'
 
     implementation 'com.google.guava:guava:29.0-jre'
 
