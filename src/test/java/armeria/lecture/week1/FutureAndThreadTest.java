@@ -27,7 +27,7 @@ class FutureAndThreadTest {
         currentThreadName();
         final CompletableFuture<String> future = new CompletableFuture<>();
         // Never complete
-        future.get();
+        // future.get();
 
         future.complete("Armeria");
     }
