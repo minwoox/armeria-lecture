@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package grpc.hello;
+
+option java_package = "com.example.grpc.hello";
+
+// This allows proto messages to each have their own file.
+// It is convenient and recommended to always have this.
+option java_multiple_files = true;
+
+service HelloService {
+
+  rpc Hello (HelloRequest) returns (HelloReply) {}
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}

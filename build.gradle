@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.google.protobuf' version '0.8.13'
 }
 
 apply plugin: 'idea'
@@ -8,10 +9,27 @@ repositories {
     mavenCentral()
 }
 
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.12.0"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.32.1'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
 dependencies {
 
     implementation 'com.linecorp.armeria:armeria:1.1.0'
     implementation 'com.linecorp.armeria:armeria-brave:1.1.0'
+    implementation 'com.linecorp.armeria:armeria-grpc:1.1.0'
     implementation 'io.zipkin.reporter2:zipkin-sender-urlconnection:2.15.2'
     implementation 'io.micrometer:micrometer-registry-prometheus:1.5.5'
 
