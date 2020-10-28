@@ -13,6 +13,8 @@ service HelloService {
   rpc Hello (HelloRequest) returns (HelloReply) {}
 
   rpc HelloStream (HelloRequest) returns (stream HelloReply) {}
+
+  rpc Payload (HelloRequest) returns (HelloPayload) {}
 }
 
 message HelloRequest {
@@ -21,4 +23,8 @@ message HelloRequest {
 
 message HelloReply {
   string message = 1;
+}
+
+message HelloPayload {
+  bytes payload = 1;
 }

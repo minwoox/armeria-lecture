@@ -7,18 +7,24 @@ import java.util.concurrent.CountDownLatch;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import com.example.grpc.hello.HelloPayload;
 import com.example.grpc.hello.HelloReply;
 import com.example.grpc.hello.HelloRequest;
 import com.example.grpc.hello.HelloServiceGrpc.HelloServiceBlockingStub;
 import com.example.grpc.hello.HelloServiceGrpc.HelloServiceFutureStub;
 import com.example.grpc.hello.HelloServiceGrpc.HelloServiceStub;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.protobuf.ByteString;
 
+import com.linecorp.armeria.client.ClientRequestContext;
+import com.linecorp.armeria.client.ClientRequestContextCaptor;
 import com.linecorp.armeria.client.Clients;
+import com.linecorp.armeria.client.grpc.GrpcClientOptions;
 import com.linecorp.armeria.common.grpc.GrpcSerializationFormats;
 import com.linecorp.armeria.server.ServerBuilder;
 import com.linecorp.armeria.server.grpc.GrpcService;
 import com.linecorp.armeria.testing.junit5.server.ServerExtension;
+import com.linecorp.armeria.unsafe.grpc.GrpcUnsafeBufferUtil;
 
 import io.grpc.stub.StreamObserver;
 
@@ -104,5 +110,21 @@ class GrpcServiceTest {
             }
         });
         latch.await();
+    }
+
+    @Test
+    void helloPayload() throws Exception {
+        final HelloServiceFutureStub futureStub =
+                Clients.builder(server.httpUri(GrpcSerializationFormats.PROTO))
+                       .option(GrpcClientOptions.UNSAFE_WRAP_RESPONSE_BUFFERS, true)
+                       .build(HelloServiceFutureStub.class);
+        final HelloRequest request = HelloRequest.newBuilder().setName("Armeria").build();
+        try (ClientRequestContextCaptor captor = Clients.newContextCaptor()) {
+            final ListenableFuture<HelloPayload> future = futureStub.payload(request);
+            final ByteString payload = future.get().getPayload();
+            System.err.println(payload.toStringUtf8());
+            final ClientRequestContext ctx = captor.get();
+            GrpcUnsafeBufferUtil.releaseBuffer(future.get(), ctx);
+        }
     }
 }
