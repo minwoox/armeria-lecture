@@ -27,16 +27,17 @@ protobuf {
 
 dependencies {
 
-    implementation 'com.linecorp.armeria:armeria:1.1.0'
-    implementation 'com.linecorp.armeria:armeria-brave:1.1.0'
-    implementation 'com.linecorp.armeria:armeria-grpc:1.1.0'
+    implementation 'com.linecorp.armeria:armeria:1.2.0'
+    implementation 'com.linecorp.armeria:armeria-brave:1.2.0'
+    implementation 'com.linecorp.armeria:armeria-grpc:1.2.0'
     implementation 'io.zipkin.reporter2:zipkin-sender-urlconnection:2.15.2'
     implementation 'io.micrometer:micrometer-registry-prometheus:1.5.5'
 
     implementation 'com.google.guava:guava:29.0-jre'
     runtimeOnly 'org.slf4j:slf4j-simple:1.7.30'
 
-    testImplementation 'com.linecorp.armeria:armeria-junit5:1.0.0'
+    testImplementation 'ch.qos.logback:logback-classic:1.2.3'
+    testImplementation 'com.linecorp.armeria:armeria-junit5:1.2.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
     testImplementation 'org.awaitility:awaitility:4.0.3'
     testImplementation 'org.assertj:assertj-core:3.16.1'

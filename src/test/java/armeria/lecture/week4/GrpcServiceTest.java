@@ -31,4 +31,8 @@ class GrpcServiceTest {
     @Test
     void helloStream() throws InterruptedException {
     }
+
+    @Test
+    void helloPayload() throws Exception {
+    }
 }
