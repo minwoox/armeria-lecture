@@ -12,7 +12,8 @@ public class ProxyServer {
         final Server server = Server.builder()
                                     .http(8000)
                                     .requestTimeoutMillis(0)
-                                    .serviceUnder("/", new ProxyService()).build();
+                                    .serviceUnder("/", new ProxyService())
+                                    .build();
         server.start().join();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
